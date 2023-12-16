@@ -14,6 +14,35 @@
                         unset($_SESSION['add-category-success']);?>
                     </p>
                 </div>
+                
+            <?php elseif(isset($_SESSION['add-post-success'])) : ?>
+                <div class="alert__message success container">
+                    <p>
+                        <?php echo $_SESSION['add-post-success'];
+                        unset($_SESSION['add-post-success']) ?>
+                    </p>
+                </div>
+                <?php elseif(isset($_SESSION['edit-post-success'])): //shows if edit post was successfull ?>
+                <div class="alert__message success container">
+                    <p>
+                        <?php echo $_SESSION['edit-post-success'];
+                        unset($_SESSION['edit-post-success']);?>
+                    </p>
+                </div>
+                <?php elseif(isset($_SESSION['edit-post'])): //shows if edit post was not successfull ?>
+                <div class="alert__message error container">
+                    <p>
+                        <?php echo $_SESSION['edit-post'];
+                        unset($_SESSION['edit-post']);?>
+                    </p>
+                </div>
+                <?php elseif(isset($_SESSION['delete-post-success'])): //shows if edit post was not successfull ?>
+                <div class="alert__message success container">
+                    <p>
+                        <?php echo $_SESSION['delete-post-success'];
+                        unset($_SESSION['delete-post-success']);?>
+                    </p>
+                </div>
                 <?php endif ?>
             <div class="container dashboard__container">
                 <button id="show__sidebar-btn" class="sidebar__toggle"><i class="uil uil-angle-right-b"></i></button>

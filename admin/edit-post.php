@@ -21,7 +21,9 @@ if(isset($_GET['id'])){
     <section class="form__section">
         <div class="container form__section-container">
             <h2>Edit Post</h2>
-            <form action="<?php echo ROOT_URL ?>admin/edit-post-logic.php" enctype="multipart/form-data" method="post">
+            <form action="<?php echo ROOT_URL ?>admin/edit-post-logic.php" enctype="multipart/form-data" method="POST">
+                <input type="hidden" name="id" value="<?php echo $post['id']?>">
+                <input type="hidden" name="previous_thumbnail_name" value="<?php echo $post['thumbnail']?>">
                 <input type="text" name="title" value="<?php echo $post['title']?>" placeholder="Title" id="">
                 <select name="category" id="">
                     <?php while($category = mysqli_fetch_assoc($categories)) : ?>
@@ -31,8 +33,8 @@ if(isset($_GET['id'])){
                 <textarea name="body" id="" rows="10" placeholder="Body"><?php echo $post['body']?></textarea>
 
                 <div class="form__control inline">
-                    <input type="checkbox" id="is_featured" value="1" checked>
-                    <label for="is_featured" name="is_featured" >Featured</label>
+                    <input type="checkbox" name="is_featured" id="is_featured" value="1" checked>
+                    <label for="is_featured">Featured</label>
                 </div>
                 <div class="form__control">
                     <label for="thumbnail">Change Thumbnail</label>

@@ -1,30 +1,31 @@
 <?php
-
-include 'partials/header.php';
-
-//fetch all posts from post table
-$query = "SELECT * FROM posts ORDER BY date_time DESC";
-$posts = mysqli_query($connection,$query);
+require 'partials/header.php';
 
 
+if (isset($_GET['search']) && isset($_GET['submit'])) {
+    $search =filter_var($_GET['search'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $query ="SELECT * FROM posts where title LIKE '%$search%' ORDER BY date_time DESC";
+    $posts = mysqli_query($connection, $query);
+}else{
+    header('location: ' . ROOT_URL .'blog.php');
+}
 ?>
 
-    <section class="search__bar">
-        <form action="" class="container search__bar-container" action="<?php echo ROOT_URL ?>search.php" method="GET" >
-            <div>
-                <i class="uil uil-search"></i>
-                <input type="search" name="search" placeholder="Search" id="">
-            </div>
-            <button type="submit" name="submit" class="btn">Go</button>
-        </form>
-    </section>
-     <!----------End of Search-------->
+<?php
+
+if(mysqli_num_rows($posts) > 0) : ?>
 
 
 
 
 
-     <section class="posts" <?php echo $featured ? '' : 'section__extra-margin' ?> >
+
+
+
+
+
+
+<section class="posts" <?php echo $posts ? '' : 'section__extra-margin' ?>>
         <div class="container posts__container">
             <?php while($post = mysqli_fetch_assoc($posts)) : ?>
             <article class="post">
@@ -71,8 +72,14 @@ $posts = mysqli_query($connection,$query);
             <?php endwhile ?>
         </div>
     </section>
+    <?php else : ?>
+        <div class="alert__message error lg section__extra-margin">
+            <p>No post found for this search</p>
+        </div>
+    <?php endif ?> 
     <!-----End of Posts---->
 
+    
     <section class="category__buttons">
         <div class="container category__buttons-container">
 
@@ -88,6 +95,5 @@ $posts = mysqli_query($connection,$query);
 
 
     <!----===========End of Category buttons=======-->
-<?php
-include 'partials/footer.php';
-?>
+
+<?php include 'partials/footer.php' ?>
